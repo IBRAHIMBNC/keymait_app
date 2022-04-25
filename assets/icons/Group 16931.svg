@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="14" viewBox="0 0 40 14">
+  <g id="Group_16931" data-name="Group 16931" transform="translate(-284 -122)">
+    <rect id="Rectangle_4615" data-name="Rectangle 4615" width="40" height="14" rx="7" transform="translate(284 122)" fill="#fafafa"/>
+    <text id="Edit" transform="translate(298 132)" font-size="10" font-family="AvenirLTStd-Book, Avenir LT Std"><tspan x="0" y="0">Edit</tspan></text>
+    <path id="Icon_material-edit" data-name="Icon material-edit" d="M4.5,10.142v1.486H5.986l4.381-4.381L8.881,5.761ZM11.516,6.1a.4.4,0,0,0,0-.559l-.927-.927a.4.4,0,0,0-.559,0l-.725.725,1.486,1.486.725-.725Z" transform="translate(283.434 120.938)"/>
+  </g>
+</svg>
