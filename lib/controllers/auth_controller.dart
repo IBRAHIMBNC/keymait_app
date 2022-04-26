@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
@@ -6,6 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthController extends GetxController {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FacebookAuth fbAuth = FacebookAuth.instance;
+  final userRef = FirebaseFirestore.instance.collection('users');
   final googleSignin = GoogleSignIn();
   User? user;
   Future<void> signUp(
@@ -16,6 +18,7 @@ class AuthController extends GetxController {
           .then((value) => Get.close(1));
       user = auth.currentUser;
       user!.updateDisplayName(name);
+      saveUserdata(auth.currentUser!);
     } catch (err) {
       rethrow;
     }
@@ -26,8 +29,6 @@ class AuthController extends GetxController {
       await auth
           .signInWithEmailAndPassword(email: email, password: password)
           .then((value) => Get.close(1));
-
-      user = auth.currentUser;
     } catch (err) {
       rethrow;
     }
@@ -41,16 +42,21 @@ class AuthController extends GetxController {
           accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
 
       await auth.signInWithCredential(credential).then((value) => Get.close(1));
+
+      saveUserdata(auth.currentUser!);
     }
   }
 
   Future<void> signInWithFb() async {
     final user = await fbAuth.login();
     if (user.accessToken != null) {
-      print(user.message);
       final authCredential =
           FacebookAuthProvider.credential(user.accessToken!.token);
-      auth.signInWithCredential(authCredential);
+      await auth
+          .signInWithCredential(authCredential)
+          .then((value) => Get.close(1));
+      final userData = auth.currentUser;
+      saveUserdata(userData!);
     }
   }
 
@@ -58,5 +64,16 @@ class AuthController extends GetxController {
     googleSignin.signOut();
     fbAuth.logOut();
     auth.signOut();
+  }
+
+  Future<void> saveUserdata(User user) async {
+    final response = await userRef.where('id', isEqualTo: user.uid).get();
+    if (response.docs.isEmpty) {
+      userRef.doc(user.uid).set({
+        'id': user.uid,
+        'name': user.displayName,
+        'imageUrl': user.photoURL
+      });
+    }
   }
 }

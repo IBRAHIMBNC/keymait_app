@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-import '../constants.dart';
-import '../widgets/bigTexT.dart';
-import 'auth_screens/screens/Signin_screen.dart';
-import 'auth_screens/screens/signUp_screen.dart';
-import 'auth_screens/widgets/roundedButton.dart';
+import '../../constants.dart';
+import '../../widgets/bigTexT.dart';
+import 'screens/Signin_screen.dart';
+import 'screens/signUp_screen.dart';
+import 'widgets/roundedButton.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({Key? key}) : super(key: key);

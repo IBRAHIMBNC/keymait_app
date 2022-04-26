@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:keymait_app/controllers/auth_controller.dart';
+import 'package:keymait_app/screens/auth_screens/screens/continueAs_screen.dart';
 import 'package:sizer/sizer.dart';
 
 import 'constants.dart';
-import 'screens/auth_screen.dart';
-import 'screens/dashBoard_screen.dart/dashboard.dart';
+import 'screens/auth_screens/auth_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
           home: StreamBuilder(
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return DashBoard();
+                return ContinueAScreen();
               }
               return AuthScreen();
             },

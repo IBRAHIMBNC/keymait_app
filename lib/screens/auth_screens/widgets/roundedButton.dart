@@ -9,8 +9,8 @@ class RoundedButton extends StatelessWidget {
   final Color color;
   final Function()? func;
   final Color textColor;
-  final double size;
-  String? image;
+  final double width;
+  final Widget? widget;
 
   RoundedButton(
       {Key? key,
@@ -18,8 +18,8 @@ class RoundedButton extends StatelessWidget {
       required this.color,
       required this.func,
       this.textColor = kPrimaryColor,
-      this.size = 50,
-      this.image})
+      this.width = 50,
+      this.widget})
       : super(key: key);
 
   @override
@@ -28,13 +28,13 @@ class RoundedButton extends StatelessWidget {
       onTap: func,
       child: Container(
         alignment: Alignment.center,
-        width: size.w,
+        width: width.w,
         height: 7.h,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(2.h),
+          borderRadius: BorderRadius.circular(15),
           color: color,
         ),
-        child: image == null
+        child: widget == null
             ? SmallText(
                 size: 13,
                 text: text,
@@ -45,11 +45,7 @@ class RoundedButton extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   children: [
-                    if (image != null)
-                      Image.asset(
-                        image!,
-                        width: 30,
-                      ),
+                    if (widget != null) widget!,
                     SizedBox(
                       width: 3.w,
                     ),

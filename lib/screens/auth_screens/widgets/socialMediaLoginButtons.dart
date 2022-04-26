@@ -17,23 +17,29 @@ class SocialMediaButtons extends StatelessWidget {
       child: Row(
         children: [
           RoundedButton(
-            image: 'assets/images/google.png',
+            widget: Image.asset(
+              'assets/images/google.png',
+              width: 30,
+            ),
             textColor: Colors.white,
             text: 'Google',
             color: kPrimaryColor,
             func: authCont.signInWithGoogle,
-            size: 40,
+            width: 40,
           ),
           SizedBox(
             width: 3.w,
           ),
           RoundedButton(
-            image: 'assets/images/facebook.png',
+            widget: Image.asset(
+              'assets/images/facebook.png',
+              width: 30,
+            ),
             textColor: Colors.white,
             text: 'Facebook',
             color: kPrimaryColor,
             func: authCont.signInWithFb,
-            size: 40,
+            width: 40,
           )
         ],
       ),

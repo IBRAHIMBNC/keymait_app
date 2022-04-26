@@ -5,7 +5,6 @@ import 'package:sizer/sizer.dart';
 import '../../../constants.dart';
 import '../../../controllers/auth_controller.dart';
 import '../../../widgets/bigTexT.dart';
-import '../../dashBoard_screen.dart/dashboard.dart';
 import 'textFieldContainer.dart';
 
 class SignUpForm extends StatefulWidget {
