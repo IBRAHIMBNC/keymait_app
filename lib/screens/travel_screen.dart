@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:keymait_app/screens/auth_screens/widgets/textFieldContainer.dart';
 import 'package:keymait_app/widgets/bigTexT.dart';
 import 'package:keymait_app/widgets/smallText.dart';
 import 'package:sizer/sizer.dart';
@@ -41,6 +43,17 @@ class TravelSceen extends StatelessWidget {
               text: 'Where would you love to Stay?',
               color: Colors.white,
               size: 11,
+            ),
+            SizedBox(
+              height: 3.h,
+            ),
+            CustomTextField(
+              suffexIcon: Icons.search,
+              borderRadius: 25,
+              iconColor: kSecondaryColor,
+              bgColor: Colors.white,
+              hintext: 'Naiobi, Kenya',
+              prefexIcon: Icons.location_on,
             )
           ]),
         )

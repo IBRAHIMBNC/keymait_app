@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:keymait_app/screens/auth_screens/screens/continueAs_screen.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../constants.dart';
 import '../../../controllers/auth_controller.dart';
 import '../../../widgets/bigTexT.dart';
+import '../../home_screen.dart';
 import 'textFieldContainer.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -15,18 +17,24 @@ class SignUpForm extends StatefulWidget {
 }
 
 class _SignUpFormState extends State<SignUpForm> {
-  final authCont = Get.put(AuthController());
+  final AuthController authCont = Get.find();
   final _key = GlobalKey<FormState>();
   String name = '';
   String phone = '';
   String email = '';
   String password = '';
 
-  void onSignUp() {
+  Future<void> onSignUp() async {
     if (_key.currentState!.validate()) {
       _key.currentState!.save();
-      authCont
-          .signUp(name, email, phone, password)
+
+      await authCont
+          .signUp(
+        name,
+        email,
+        phone,
+        password,
+      )
           .onError((error, stackTrace) {
         String msg = error.toString();
         if (msg.contains('A network error')) {
@@ -43,7 +51,7 @@ class _SignUpFormState extends State<SignUpForm> {
           title: 'Sign Up failed',
           message: msg,
         ));
-      });
+      }).then((value) => Get.offAll(() => ContinueAScreen()));
     }
   }
 
@@ -61,7 +69,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 },
                 onSave: (val) => name = val,
                 hintext: 'Full Name',
-                icon: Icons.person,
+                prefexIcon: Icons.person,
                 title: 'Your Name'),
             CustomTextField(
                 isPhone: true,
@@ -75,20 +83,20 @@ class _SignUpFormState extends State<SignUpForm> {
                 },
                 onSave: (val) => phone = val,
                 hintext: 'Mobile Number',
-                icon: Icons.phone_iphone,
+                prefexIcon: Icons.phone_iphone,
                 title: 'Phone Number'),
             CustomTextField(
                 validator: (val) {
-                  if (val == null || val.trim().isEmpty) {
+                  if (val!.trim().isEmpty) {
                     return 'Email is empty';
-                  } else if (!val.isEmail) {
+                  } else if (!GetUtils.isEmail(val.trim())) {
                     return 'Email is invalid';
                   }
                   return null;
                 },
                 onSave: (val) => email = val,
                 hintext: 'user@keymait.com',
-                icon: Icons.email,
+                prefexIcon: Icons.email,
                 title: 'Email Address'),
             CustomTextField(
                 validator: (val) {
@@ -99,7 +107,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 },
                 onSave: (val) => password = val,
                 hintext: '●●●●●●●●●',
-                icon: Icons.key,
+                prefexIcon: Icons.key,
                 title: 'Password',
                 isPassword: true),
             SizedBox(

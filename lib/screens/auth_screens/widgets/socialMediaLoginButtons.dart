@@ -4,6 +4,8 @@ import 'package:keymait_app/controllers/auth_controller.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../constants.dart';
+import '../../home_screen.dart';
+import '../screens/continueAs_screen.dart';
 import 'roundedButton.dart';
 
 class SocialMediaButtons extends StatelessWidget {
@@ -19,12 +21,12 @@ class SocialMediaButtons extends StatelessWidget {
           RoundedButton(
             widget: Image.asset(
               'assets/images/google.png',
-              width: 30,
+              width: 6.5.w,
             ),
             textColor: Colors.white,
             text: 'Google',
             color: kPrimaryColor,
-            func: authCont.signInWithGoogle,
+            func: () => authCont.signInWithGoogle(),
             width: 40,
           ),
           SizedBox(
@@ -33,12 +35,12 @@ class SocialMediaButtons extends StatelessWidget {
           RoundedButton(
             widget: Image.asset(
               'assets/images/facebook.png',
-              width: 30,
+              width: 6.w,
             ),
             textColor: Colors.white,
             text: 'Facebook',
             color: kPrimaryColor,
-            func: authCont.signInWithFb,
+            func: () => authCont.signInWithFb(),
             width: 40,
           )
         ],

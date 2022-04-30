@@ -6,6 +6,8 @@ import '../../../constants.dart';
 import '../../../controllers/auth_controller.dart';
 import '../../../widgets/bigTexT.dart';
 import '../../../widgets/smallText.dart';
+import '../../home_screen.dart';
+import '../screens/continueAs_screen.dart';
 import 'textFieldContainer.dart';
 
 class SignInForm extends StatefulWidget {
@@ -21,9 +23,11 @@ class _SignInFormState extends State<SignInForm> {
   final authCont = Get.put(AuthController());
   final _key = GlobalKey<FormState>();
 
-  void logIn() {
+  Future<void> logIn() async {
     if (_key.currentState!.validate()) {
-      authCont.signIn(email, password).onError((error, stackTrace) {
+      try {
+        await authCont.signIn(email, password);
+      } catch (error) {
         String msg = error.toString();
         if (msg.contains('user-not-found')) {
           msg = 'Could not find any user with this email';
@@ -39,10 +43,10 @@ class _SignInFormState extends State<SignInForm> {
           duration: Duration(seconds: 4),
           overlayColor: Colors.red,
           backgroundColor: Colors.red,
-          title: 'Sign Up failed',
+          title: 'Login failed',
           message: msg,
         ));
-      });
+      }
     }
   }
 
@@ -63,12 +67,12 @@ class _SignInFormState extends State<SignInForm> {
                 },
                 onSave: (val) => email = val,
                 hintext: 'user@keymait.com',
-                icon: Icons.email,
+                prefexIcon: Icons.email,
                 title: 'Email Address'),
             CustomTextField(
                 onSave: (val) => password = val,
                 hintext: '●●●●●●●●●',
-                icon: Icons.key,
+                prefexIcon: Icons.key,
                 title: 'Password',
                 isPassword: true),
             Align(
